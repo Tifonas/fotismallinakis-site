@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Fotis Mallinakis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700&family=Instrument+Sans:wght@400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="bar">
+  <a class="story" href="story.html">Story</a>
+  <a class="name" href="index.html"><img src="logo.svg" alt="Fotis Mallinakis"></a>
+  <a class="contact" href="contact.html">Contact</a>
+</header>
+
+<main id="viewport"><div id="canvas"></div></main>
+
+<script src="projects.js"></script>
+<script>
+(function () {
+  /* ---- Settings ---- */
+  var SPEED_TOUCH = 1.95;    // phone: canvas moves 150% of the finger movement
+  var FOLLOW      = 0.078;   // 0..1 per 16ms frame. Two chained follows = ease in + ease out
+  var FOLLOW_TOUCH = 0.208;  // snappier on phone
+  var BW_FULL     = 14;     // canvas speed (px per frame) at which tiles are fully black and white
+  var EDGE        = 0.14;   // desktop: outer 14% of the screen on each side is the 'edge' (cursor reaches the far tiles before the screen edge)
+  var PAD = 120, CAP = 80;  // margin around the tiles, caption allowance (Figma units)
+
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var coarse = window.matchMedia("(pointer: coarse)").matches;
+  var vp = document.getElementById("viewport");
+  var canvas = document.getElementById("canvas");
+  var s = 1, vw = 0, vh = 0, follow = FOLLOW;
+
+  // Bounds of all tiles (Figma units)
+  var bx0 = 1e9, by0 = 1e9, bx1 = -1e9, by1 = -1e9;
+  window.PROJECTS.forEach(function (p) {
+    bx0 = Math.min(bx0, p.x); by0 = Math.min(by0, p.y);
+    bx1 = Math.max(bx1, p.x + p.w); by1 = Math.max(by1, p.y + (p.h || p.w) + CAP);
+  });
+  bx0 -= PAD; by0 -= PAD; bx1 += PAD; by1 += PAD;
+
+  // Build tiles. No CSS scale: sizes are set in real pixels so the browser only ever moves finished layers.
+  var items = [];
+  window.PROJECTS.forEach(function (p) {
+    var a = document.createElement("a");
+    a.className = "item"; a.href = p.slug + ".html"; a.draggable = false;
+    var box = document.createElement("span");
+    box.className = "box"; box.style.setProperty("--tile-bg", p.bg);
+    var img = document.createElement("img");
+    img.src = p.image; img.alt = p.title; img.decoding = "async"; img.draggable = false;
+    img.onerror = function () { img.style.display = "none"; };
+    box.appendChild(img);
+    var bw = null;
+    if (coarse || true) {
+      // Black and white copy drawn once from the photo; fading it in is cheap (no filters while moving)
+      bw = document.createElement("canvas"); bw.className = "bw";
+      img.addEventListener("load", function () {
+        try {
+          var k = Math.min(1, 800 / img.naturalWidth);
+          bw.width = Math.max(1, Math.round(img.naturalWidth * k)); bw.height = Math.max(1, Math.round(img.naturalHeight * k));
+          var c = bw.getContext("2d");
+          c.drawImage(img, 0, 0, bw.width, bw.height);
+          var d = c.getImageData(0, 0, bw.width, bw.height), px = d.data;
+          for (var n = 0; n < px.length; n += 4) { var g = px[n] * 0.299 + px[n + 1] * 0.587 + px[n + 2] * 0.114; px[n] = px[n + 1] = px[n + 2] = g; }
+          c.putImageData(d, 0, 0);
+        } catch (e) { bw.style.display = "none"; bw.broken = true; }
+      });
+      box.appendChild(bw);
+    }
+    var row = document.createElement("span");
+    row.className = "row";
+    var lines = (p.cap || p.title).split("\n");
+    var nm = document.createElement("b");
+    nm.className = "nm"; nm.textContent = lines[0];
+    row.appendChild(nm);
+    if (lines.length > 1) {
+      var ds = document.createElement("span");
+      ds.className = "ds"; ds.textContent = lines.slice(1).join("\n");
+      row.appendChild(ds);
+    }
+    if (p.cats) {
+      var cats = document.createElement("span");
+      cats.className = "cats"; cats.textContent = p.cats;
+      row.appendChild(cats);
+    }
+    a.appendChild(box); a.appendChild(row);
+    canvas.appendChild(a);
+    items.push({ p: p, a: a, box: box, img: img, bw: bw });
+  });
+
+  function layout() {
+    vw = window.innerWidth; vh = window.innerHeight;
+    s = vw < 700 ? 0.5 : Math.min(1, Math.max(0.5, vw / 2400));
+    document.documentElement.style.setProperty("--s", s);
+    canvas.style.width = (bx1 - bx0) * s + "px"; canvas.style.height = (by1 - by0) * s + "px";
+    items.forEach(function (it) {
+      var p = it.p;
+      it.a.style.left = (p.x - bx0) * s + "px"; it.a.style.top = (p.y - by0) * s + "px"; it.a.style.width = p.w * s + "px";
+      if (p.h) it.box.style.height = p.h * s + "px"; else it.img.style.height = "auto";
+    });
+  }
+
+  // Pan range for the canvas offset
+  function rangeX() { var hi = 0, lo = vw - (bx1 - bx0) * s; return lo > hi ? [lo / 2, lo / 2] : [lo, hi]; }
+  function rangeY() { var hi = 75 * s, lo = vh - (by1 - by0) * s; return lo > hi ? [(lo + hi) / 2, (lo + hi) / 2] : [lo, hi]; }
+  function clampX(v) { var r = rangeX(); return Math.min(r[1], Math.max(r[0], v)); }
+  function clampY(v) { var r = rangeY(); return Math.min(r[1], Math.max(r[0], v)); }
+  function edge(f) { return Math.min(1, Math.max(0, (f - EDGE) / (1 - 2 * EDGE))); }
+  // Position zero: PAROLES centred on screen. The cursor in the middle of the screen = PAROLES.
+  var HOME = window.PROJECTS.filter(function (p) { return p.slug === "paroles"; })[0] || window.PROJECTS[0];
+  function homeX() { return clampX(vw / 2 - (HOME.x + HOME.w / 2 - bx0) * s); }
+  function homeY() { return clampY(vh / 2 - (HOME.y + (HOME.h || HOME.w) / 2 - by0) * s); }
+  // Cursor 0 -> left/top of the content, 0.5 -> home, 1 -> right/bottom (piecewise, so home stays in the middle)
+  function mapAxis(f, r, home) { f = edge(f); return f < 0.5 ? r[1] + (home - r[1]) * (f / 0.5) : home + (r[0] - home) * ((f - 0.5) / 0.5); }
+  function mapX(x) { return mapAxis(x / vw, rangeX(), homeX()); }
+  function mapY(y) { return mapAxis(y / vh, rangeY(), homeY()); }
+
+  // Position: target -> mid -> current (double easing, frame-rate independent)
+  var tx = 0, ty = 0, mx = 0, my = 0, cx = 0, cy = 0, running = false, last = 0, lastLevel = -1;
+
+  // Smoothed movement level (0 still .. 1 fast). Fades in the black and white copy. Opacity only: cheap on any device.
+  var shown = 0, lastBw = -1;
+  function look(target) {
+    shown += (target - shown) * 0.2;
+    if (shown < 0.003) shown = 0;
+    var bwv = Math.round(Math.min(1, shown * 1.5) * 40) / 40;
+    if (bwv === lastBw) return;
+    lastBw = bwv;
+    items.forEach(function (it) { if (it.bw && !it.bw.broken) it.bw.style.opacity = bwv; });
+  }
+
+  function start() { if (!running) { running = true; last = 0; requestAnimationFrame(tick); } }
+  function tick(t) {
+    var dt = last ? Math.min(50, t - last) : 16.7; last = t;
+    var k = 1 - Math.pow(1 - (reduce ? 0.5 : follow), dt / 16.7);
+    var px = cx, py = cy;
+    mx += (tx - mx) * k; my += (ty - my) * k;
+    cx += (mx - cx) * k; cy += (my - cy) * k;
+    canvas.style.transform = "translate3d(" + cx.toFixed(1) + "px," + cy.toFixed(1) + "px,0)";
+    var v = Math.hypot(cx - px, cy - py) * (16.7 / dt);
+    var done = Math.abs(tx - cx) < 0.1 && Math.abs(ty - cy) < 0.1;
+    look(done ? 0 : Math.min(1, v / BW_FULL));
+    if (done && shown === 0) { running = false; return; }
+    requestAnimationFrame(tick);
+  }
+
+  layout();
+  tx = mx = cx = homeX(); ty = my = cy = homeY();
+  canvas.style.transform = "translate3d(" + cx + "px," + cy + "px,0)";
+  window.addEventListener("resize", function () { layout(); tx = clampX(tx); ty = clampY(ty); start(); });
+
+  // Mouse: cursor position decides what you see; the canvas slides the opposite way
+  window.addEventListener("pointermove", function (e) {
+    if (e.pointerType !== "mouse") return;
+    follow = FOLLOW; tx = mapX(e.clientX); ty = mapY(e.clientY); start();
+  });
+
+  // Touch / pen: drag with the finger
+  var drag = null, moved = 0;
+  vp.addEventListener("pointerdown", function (e) {
+    if (e.pointerType === "mouse") return;
+    drag = { x: e.clientX, y: e.clientY }; moved = 0; follow = FOLLOW_TOUCH;
+  });
+  window.addEventListener("pointermove", function (e) {
+    if (!drag || e.pointerType === "mouse") return;
+    var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    drag.x = e.clientX; drag.y = e.clientY;
+    moved += Math.abs(dx) + Math.abs(dy);
+    tx = clampX(tx + dx * SPEED_TOUCH); ty = clampY(ty + dy * SPEED_TOUCH);
+    start();
+  });
+  window.addEventListener("pointerup", function () { drag = null; });
+  window.addEventListener("pointercancel", function () { drag = null; });
+  vp.addEventListener("click", function (e) { if (moved > 8) { e.preventDefault(); moved = 0; } }, true);
+})();
+</script>
+</body>
+</html>

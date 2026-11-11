@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>anima | Artist’s cryptocurrency brand identity | Fotis Mallinakis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700&family=Instrument+Sans:wght@400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="project">
+<header class="bar">
+  <a class="story" href="story.html">Story</a>
+  <a class="name" href="index.html"><img src="logo.svg" alt="Fotis Mallinakis"></a>
+  <a class="contact" href="contact.html">Contact</a>
+</header>
+
+<main class="grid">
+  <div class="hero wide" id="hero" style="--tile-bg: #d9dde6">
+    <img src="images/anima.jpg" alt="anima | Artist’s cryptocurrency brand identity" onerror="this.parentNode.classList.add('missing')">
+  </div>
+
+  <section class="info grid" style="grid-column: 1 / -1">
+    <div class="name">Brand identity</div>
+    <div class="details">
+      <p>Client Name, <em>Project Title</em><br>
+      Project type<br>
+      Location<br>
+      2026</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In porta ex a porta blandit. Suspendisse feugiat justo at mauris molestie molestie. Ut mattis urna sed sem pulvinar, vitae rutrum nulla ultrices. Curabitur laoreet erat et sapien venenatis luctus.</p>
+    </div>
+  </section>
+
+  <section class="blocks grid" style="grid-column: 1 / -1">
+    <div class="ph" style="grid-column: 1 / span 12; grid-row: 1; aspect-ratio: 1065 / 526"></div>
+    <div class="ph" style="grid-column: 1 / span 12; grid-row: 2; aspect-ratio: 1065 / 526"></div>
+    <div class="ph" style="grid-column: 1 / span 12; grid-row: 3; aspect-ratio: 1065 / 1500"></div>
+  </section>
+
+  <nav class="pn grid" style="grid-column: 1 / -1">
+    <a class="prev" href="artlab.html">&larr; Previous project<span>ARTLAB | Interior designer brand identity</span></a>
+    <a class="next" href="beyond-podcast.html">Next project &rarr;<span>beyond podcast | Explainer videos showreel</span></a>
+  </nav>
+</main>
+
+<div class="gridlines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<script>
+  document.documentElement.classList.add("project");
+  document.addEventListener("keydown", function (e) { if (e.key === "g" || e.key === "G") document.documentElement.classList.toggle("show-grid"); });
+  var w = window.innerWidth;
+  document.documentElement.style.setProperty("--s", w < 700 ? 0.5 : Math.min(1, Math.max(0.5, w / 2400)));
+</script>
+</body>
+</html>

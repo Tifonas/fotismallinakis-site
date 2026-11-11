@@ -1,0 +1,125 @@
+:root {
+  --s: 0.6;                       /* global scale, set by JS from the screen width */
+  --bg: #fff;
+  --ink: #000;
+  /* Project-name size: identical on the homepage and on project pages */
+  --cap: max(calc(15px * var(--s) + 5px), 16px);   /* +5px */
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--ink);
+  font-family: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+
+/* Header (Instrument Sans: 15px nav, 24px name, 75px tall, in Figma units) */
+.bar { position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+  height: calc(75px * var(--s)); background: #fff; border-bottom: 1px solid #9a9a9a; box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  font-family: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  /* nav sits inside the 1065px grid, 10.5px in from each edge, evenly spaced */
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 0 max(16px, calc((100% - 1065px) / 2 + 10.5px)); }
+.bar a { font-size: calc(15px * var(--s) + 5px); white-space: nowrap; }
+.bar .name { display: block; line-height: 0; }
+.bar .name img { display: block; height: calc(26px * var(--s)); width: calc(26px * var(--s) * 7.667); }
+
+/* Pan canvas: only ever moved with translate3d, nothing is scaled or filtered while it moves */
+#viewport { position: fixed; inset: 0; touch-action: none; overflow: hidden; }
+#canvas { position: absolute; top: 0; left: 0; will-change: transform; backface-visibility: hidden; }
+
+.item { position: absolute; display: block; }
+.item .box { display: block; position: relative; width: 100%; background: var(--tile-bg); overflow: hidden; }
+.item img { display: block; width: 100%; height: 100%; object-fit: cover;
+  -webkit-user-drag: none; user-select: none; }
+/* Black and white copy sits on top and fades in while the canvas moves */
+.item canvas.bw { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  opacity: 0; pointer-events: none; will-change: opacity; }
+/* Under each photo: project name (bold) on the left, short descriptor on the right.
+   Cursor on the photo: the descriptor is swapped for the categories. Touch screens: name + descriptor
+   on the left, categories always shown on the right. */
+.item .row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;
+  column-gap: calc(16px * var(--s)); row-gap: calc(2px * var(--s)); margin-top: calc(12px * var(--s)); }
+.item .nm, .item .ds, .item .cats { display: block; font-size: var(--cap); line-height: 1.3; white-space: pre; }
+.item .nm { font-weight: 700; }
+.item .ds, .item .cats { margin-left: auto; text-align: right; }
+.item .cats { display: none; pointer-events: none; }
+@keyframes cats-in { from { opacity: 0; } to { opacity: 1; } }
+@media (hover: hover) {
+  .item .box:hover + .row .ds { display: none; }
+  .item .box:hover + .row .cats { display: block; animation: cats-in .2s ease; }
+}
+@media (hover: none) {
+  .item .row { display: grid; grid-template-columns: 1fr auto; }
+  .item .nm { grid-column: 1; grid-row: 1; }
+  .item .ds { grid-column: 1; grid-row: 2; margin: 0; text-align: left; }
+  .item .cats { display: block; grid-column: 2; grid-row: 1 / span 3; }
+}
+
+/* Phone: header spreads evenly, canvas rules stay the same */
+@media (max-width: 700px) {
+  .bar { padding: 0 6vw; }
+  :root { --cap: 11px; }
+  .bar a { font-size: 13px; }
+  .bar .name img { height: 15px; width: 115px; }
+}
+
+/* Project pages: 12 columns, 75px wide, 15px gutters, centred (Figma "Center" grid = 1065px) */
+:root { --gutter: 15px; --grid-w: 1065px; }
+html.project, html.project body { overflow: auto; overflow-x: hidden; height: auto; min-height: 100%; }
+html.project body { background: #fff; }
+.project main { padding: calc(75px * var(--s) + 20px) 0 80px; }
+.project main.grid { min-height: 4000px; align-content: start; }
+.project .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+/* On wide screens the grid is exactly 1065px; on narrow screens the columns shrink */
+.project main.grid { width: min(var(--grid-w), calc(100% - 32px)); margin-inline: auto; }
+.project .hero { grid-column: 1 / -1; background: var(--tile-bg, #eee); }
+.project .hero.wide { width: min(1440px, 100vw); justify-self: center; }
+.project .hero img { display: block; width: 100%; height: auto; }
+.project .ph.img { background: none; }
+.project .ph.img img { display:block; width:100%; height:100%; object-fit:cover; }
+.project .ph.video { background: #000; }
+.project .ph.video iframe { display:block; width:100%; height:100%; border:0; }
+.project .hero.missing { aspect-ratio: 1700 / 1215; }
+.project .hero.missing img { display: none; }
+.project .info { margin-top: 36px; font-size: var(--cap); line-height: 1.25; }
+.project .info .name { grid-column: 1 / span 6; text-transform: uppercase; line-height: 1; }
+.project .info .details { grid-column: 7 / span 6; }
+.project .info p + p { margin-top: 1.25em; }
+.project .info a.view { text-decoration: underline; }
+@media (max-width: 700px) {
+  .project .info .name, .project .info .details { grid-column: 1 / -1; }
+  .project .info .details { margin-top: 24px; }
+}
+.project .blocks { margin-top: 109px; row-gap: var(--gutter); }
+.project .ph { background: #e9e9ee; }
+/* Previous / next project */
+.project .pn { margin-top: 96px; font-size: var(--cap); line-height: 1.25; text-transform: uppercase; }
+.project .pn a { display: block; }
+.project .pn a span { display: block; margin-top: 8px; text-transform: none; opacity: .55; }
+.project .pn .prev { grid-column: 1 / span 6; }
+.project .pn .next { grid-column: 7 / span 6; text-align: right; }
+.project .pn a:hover span { opacity: 1; }
+/* Grid overlay, toggled with the G key (same colour as the Figma grid: B8FFF2 at 25%) */
+.gridlines { display: none; position: fixed; top: 0; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: min(var(--grid-w), calc(100% - 32px)); z-index: 20; pointer-events: none;
+  grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
+.gridlines i { background: rgba(184, 255, 242, 0.25); outline: 1px solid rgba(0, 190, 170, 0.25); }
+html.show-grid .gridlines { display: grid; }
+
+/* ---- Responsive: same files, rules by screen width ---- */
+/* Tablet: same grid, wider side margins */
+@media (min-width: 701px) and (max-width: 1100px) {
+  .project main.grid, .gridlines { width: calc(100% - 64px); }
+  .project .info { margin-top: 28px; }
+  .project .blocks { margin-top: 72px; }
+}
+/* Phone: one column. Images stack full width, text stacks, more breathing room */
+@media (max-width: 700px) {
+  .project main { padding-bottom: 56px; }
+  .project main.grid { min-height: 0; }
+  .project .blocks { margin-top: 56px; }
+  .project .ph { grid-column: 1 / -1 !important; grid-row: auto !important; }
+  .project .info { margin-top: 24px; }
+  .project .info .details { margin-top: 20px; }
+  .project .pn { margin-top: 64px; }
+  .project .pn .prev { grid-column: 1 / span 6; }
+  .project .pn .next { grid-column: 7 / span 6; }
+}

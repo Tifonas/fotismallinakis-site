@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PAROLES | French teacher visual identity | Fotis Mallinakis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;700&family=Instrument+Sans:wght@400&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body class="project">
+<header class="bar">
+  <a class="story" href="story.html">Story</a>
+  <a class="name" href="index.html"><img src="logo.svg" alt="Fotis Mallinakis"></a>
+  <a class="contact" href="contact.html">Contact</a>
+</header>
+
+<main class="grid">
+  <div class="hero wide" id="hero" style="--tile-bg: #FDEFE8">
+    <img src="images/paroles-hero.jpg" alt="PAROLES | French teacher visual identity" onerror="this.parentNode.classList.add('missing')">
+  </div>
+
+  <section class="info grid" style="grid-column: 1 / -1">
+    <div class="name">Visual identity</div>
+    <div class="details">
+      <p>Paroles<br>
+      Role: visual identity<br>
+      2026</p>
+      <p>Paroles is the identity of an independent French teacher who guides adult learners toward speaking with ease. In the wordmark, a speech bubble takes the place of the O, so the name holds two meanings at once: &ldquo;words&rdquo;, and &ldquo;you speak&rdquo;.</p>
+      <p>The bubble stretches and narrows as the distance between silence and fluency closes.</p>
+      <p>A strict grid, borrowed from the student&rsquo;s workbook, gives every page its order.</p>
+    </div>
+  </section>
+
+  <section class="blocks grid" style="grid-column: 1 / -1">
+    <div class="ph video" style="grid-column: 1 / span 12; grid-row: 1; aspect-ratio: 16 / 9"><iframe src="https://www.youtube-nocookie.com/embed/DwVtJ387Szk?rel=0" title="Paroles video" loading="lazy" allow="accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe></div>
+    <div class="ph img" style="grid-column: 1 / span 6; grid-row: 2; aspect-ratio: 1 / 1"><img src="images/paroles-1.jpg" alt="" loading="lazy"></div>
+    <div class="ph img" style="grid-column: 7 / span 6; grid-row: 2; aspect-ratio: 1 / 1"><img src="images/paroles-2.jpg" alt="" loading="lazy"></div>
+    <div class="ph img" style="grid-column: 1 / span 12; grid-row: 3; aspect-ratio: 1440 / 1080"><img src="images/paroles-3.jpg" alt="" loading="lazy"></div>
+    <div class="ph img" style="grid-column: 1 / span 12; grid-row: 4; aspect-ratio: 1441 / 1082"><img src="images/paroles-4.jpg" alt="" loading="lazy"></div>
+    <div class="ph img" style="grid-column: 1 / span 12; grid-row: 5; aspect-ratio: 1441 / 1081"><img src="images/paroles-5.jpg" alt="" loading="lazy"></div>
+    <div class="ph img" style="grid-column: 1 / span 12; grid-row: 6; aspect-ratio: 1441 / 1081"><img src="images/paroles-6.jpg" alt="" loading="lazy"></div>
+    <div class="ph img" style="grid-column: 1 / span 12; grid-row: 7; aspect-ratio: 1441 / 1081"><img src="images/paroles-7.jpg" alt="" loading="lazy"></div>
+    <div class="ph img" style="grid-column: 1 / span 12; grid-row: 8; aspect-ratio: 1441 / 1081"><img src="images/paroles-8.jpg" alt="" loading="lazy"></div>
+  </section>
+
+  <nav class="pn grid" style="grid-column: 1 / -1">
+    <a class="prev" href="trinity.html">&larr; Previous project<span>TRINITY | Emergency infographics</span></a>
+    <a class="next" href="showcase.html">Next project &rarr;<span>ShowCase | Product design</span></a>
+  </nav>
+</main>
+
+<div class="gridlines" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+
+<script>
+  document.documentElement.classList.add("project");
+  document.addEventListener("keydown", function (e) { if (e.key === "g" || e.key === "G") document.documentElement.classList.toggle("show-grid"); });
+  var w = window.innerWidth;
+  document.documentElement.style.setProperty("--s", w < 700 ? 0.5 : Math.min(1, Math.max(0.5, w / 2400)));
+</script>
+</body>
+</html>
