@@ -3,6 +3,7 @@
   --bg: #fff;
   --ink: #000;
   /* Project-name size: identical on the homepage and on project pages */
+  --capH: min(calc(11px + (var(--s) - 0.5) * 50px), 24px);   /* homepage captions: 11px at phone/iPad scale, grows with the tiles */
   --cap: max(calc(15px * var(--s) + 5px), 16px);   /* +5px */
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -37,7 +38,7 @@ a { color: inherit; text-decoration: none; }
    on the left, categories always shown on the right. */
 .item .row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;
   column-gap: calc(16px * var(--s)); row-gap: calc(2px * var(--s)); margin-top: calc(12px * var(--s)); }
-.item .nm, .item .ds, .item .cats { display: block; font-size: var(--cap); line-height: 1.3; white-space: pre; }
+.item .nm, .item .ds, .item .cats { display: block; font-size: var(--capH); line-height: 1.3; white-space: pre; }
 .item .nm { font-weight: 700; }
 .item .ds, .item .cats { margin-left: auto; text-align: right; }
 .item .cats { display: none; pointer-events: none; }
