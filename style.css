@@ -65,7 +65,8 @@ a { color: inherit; text-decoration: none; }
 :root { --gutter: 15px; --grid-w: 1065px; }
 html.project, html.project body { overflow: auto; overflow-x: hidden; height: auto; min-height: 100%; }
 html.project body { background: #fff; }
-.project main { padding: calc(75px * var(--s) + 20px) 0 80px; }
+.project main { padding: calc(75px * var(--s)) 0 80px; }
+.project .details a { text-decoration: underline; }
 .project main.grid { min-height: 4000px; align-content: start; }
 .project .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); }
 /* On wide screens the grid is exactly 1065px; on narrow screens the columns shrink */
