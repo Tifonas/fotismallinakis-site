@@ -78,7 +78,9 @@ html.project body { background: #fff; }
 .project main.grid { width: min(var(--grid-w), calc(100% - 32px)); margin-inline: auto; }
 .project .hero { grid-column: 1 / -1; background: var(--tile-bg, #eee); }
 .project .hero.wide { width: min(1440px, 100vw); justify-self: center; }
-.project .hero img { display: block; width: 100%; height: auto; }
+.project .hero img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.project .hero.wide { aspect-ratio: 1440 / 761; overflow: hidden; }
+.project .info a { text-decoration: underline; }
 .project .ph.img { background: none; }
 .project .ph.img img { display:block; width:100%; height:100%; object-fit:cover; }
 .project .ph.video { background: #000; }
