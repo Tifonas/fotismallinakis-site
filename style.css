@@ -6,9 +6,14 @@
   --bg: #fff;
   --ink: #000;
   /* Project-name size: identical on the homepage and on project pages */
-  --capH: max(11px, calc(15px * var(--s) - 2px));   /* homepage captions: 11px floor (phone/iPad), 13px at 2400+ */
-  --cap: max(calc(15px * var(--s) + 5px), 16px);   /* +5px */
+  /* Type scale: --cap is the biggest text (nav, project text). 26px large screens, 20px tablet, 15px phone.
+     Every other size follows it in the same ratio; leading is always size + 2px. */
+  --cap: 26px;
+  --capH: max(11px, calc(var(--cap) * 0.65));   /* homepage captions */
+  --foot: max(11px, calc(var(--cap) * 0.6));    /* footer */
 }
+@media (max-width: 1279px) { :root { --cap: 20px; } }
+@media (max-width: 700px) { :root { --cap: 15px; } }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 html, body { height: 100%; overflow: hidden; background: var(--bg); color: var(--ink);
   font-family: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; -webkit-font-smoothing: antialiased; }
@@ -21,7 +26,7 @@ a { color: inherit; text-decoration: none; }
   /* nav sits inside the 1065px grid, 10.5px in from each edge, evenly spaced */
   display: flex; justify-content: space-between; align-items: center;
   padding: 0 max(16px, calc((100% - 1065px) / 2 + 10.5px)); }
-.bar a { font-size: calc(15px * var(--s) + 5px); white-space: nowrap; }
+.bar a { font-size: var(--cap); line-height: calc(var(--cap) + 2px); white-space: nowrap; }
 .bar .name { display: block; line-height: 0; }
 .bar .name img { display: block; height: calc(60px * var(--s)); width: auto; }
 
@@ -41,8 +46,7 @@ a { color: inherit; text-decoration: none; }
    on the left, categories always shown on the right. */
 .item .row { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start;
   column-gap: calc(16px * var(--s)); row-gap: calc(2px * var(--s)); margin-top: calc(12px * var(--s)); }
-.item .nm, .item .ds, .item .cats { display: block; font-size: var(--capH); line-height: 1.3; white-space: pre; }
-.item .cats { line-height: 24px; }
+.item .nm, .item .ds, .item .cats { display: block; font-size: var(--capH); line-height: calc(var(--capH) + 2px); white-space: pre; }
 .item .nm { font-weight: 700; }
 .item .ds, .item .cats { margin-left: auto; text-align: right; }
 .item .cats { display: none; pointer-events: none; }
@@ -61,8 +65,6 @@ a { color: inherit; text-decoration: none; }
 /* Phone: header spreads evenly, canvas rules stay the same */
 @media (max-width: 700px) {
   .bar { padding: 0 6vw; }
-  :root { --cap: 11px; }
-  .bar a { font-size: 13px; }
   .bar .name img { height: 34px; width: auto; }
 }
 
@@ -88,8 +90,8 @@ html.project body { background: #fff; }
 .project .ph.video iframe { display:block; width:100%; height:100%; border:0; }
 .project .hero.missing { aspect-ratio: 1700 / 1215; }
 .project .hero.missing img { display: none; }
-.project .info { margin-top: 36px; font-size: var(--cap); line-height: 1.25; }
-.project .info .name { grid-column: 1 / span 6; text-transform: uppercase; line-height: 1; }
+.project .info { margin-top: 36px; font-size: var(--cap); line-height: calc(var(--cap) + 2px); }
+.project .info .name { grid-column: 1 / span 6; text-transform: uppercase; line-height: calc(var(--cap) + 2px); }
 .project .info .details { grid-column: 7 / span 6; }
 .project .info p + p { margin-top: 1.25em; }
 .project .info a.view { text-decoration: underline; }
@@ -100,7 +102,7 @@ html.project body { background: #fff; }
 .project .blocks { margin-top: 109px; row-gap: var(--gutter); }
 .project .ph { background: #e9e9ee; }
 /* Previous / next project */
-.project .pn { margin-top: 96px; font-size: var(--cap); line-height: 1.25; text-transform: uppercase; }
+.project .pn { margin-top: 96px; font-size: var(--cap); line-height: calc(var(--cap) + 2px); text-transform: uppercase; }
 .project .pn a { display: block; }
 .project .pn a span { display: block; margin-top: 8px; text-transform: none; opacity: .55; }
 .project .pn .prev { grid-column: 1 / span 6; }
@@ -134,7 +136,7 @@ html.show-grid .gridlines { display: grid; }
 }
 
 /* Footer: centred; on Story/Contact it sits at the bottom of the screen */
-.foot { font-size: 12px; line-height: 1; color: #777; text-align: center; }
+.foot { font-size: var(--foot); line-height: calc(var(--foot) + 2px); color: #777; text-align: center; }
 .project .foot { width: 100%; padding: 0 16px 28px; margin-top: auto; }
 html.project body { display: flex; flex-direction: column; min-height: 100vh; }
 html.project body > main { flex: 0 0 auto; }

@@ -6,7 +6,7 @@
 window.PROJECTS = [
   { slug: "kokkinou",       title: "Kokkinou | Interior designer brand identity",    image: "images/kokkinou.jpg",         bg: "#e6dfd6", x: 2109, y: 600, w: 500, h: 500, cap: "Kokkinou\ninterior design studio", cats: "brand identity\nbrand voice" },
   { slug: "anima",          title: "anima | Artist’s cryptocurrency brand identity", image: "images/anima.jpg",       bg: "#d9dde6", x: 1328, y: 1619, w: 500, h: 281, cap: "Anima\nartist’s crypto brand", cats: "brand identity\nmotion graphics\nUI/UX" },
-  { slug: "beyond-podcast", title: "beyond podcast | Explainer videos showreel",    image: "images/beyond-podcast.jpg", bg: "#e2d6d6", x: 2379, y: 2001, w: 500, h: 391, cap: "Beyond podcast\nexplainer videos", cats: "motion graphics\n2D animation" },
+  { slug: "beyond-podcast", title: "Beyond Podcast | Explainer videos showreel",    image: "images/beyond-podcast.jpg", bg: "#e2d6d6", x: 2379, y: 2001, w: 500, h: 391, cap: "Beyond podcast\nexplainer videos", cats: "motion graphics\n2D animation" },
   { slug: "parthenogenesis",title: "parthenogenesis | Packaging concept",           image: "images/parthenogenesis.jpg",bg: "#d6e2db", x: 1619, y: 2173, w: 400, h: 400, cap: "Parthenogenesis\nfilm DVD sleeves", cats: "packaging\nillustration" },
   { slug: "trinity",        title: "TRINITY | Emergency infographics",              image: "images/trinity.jpg",        bg: "#e6e2d0", x: 1454, y: 931, w: 400, h: 400, cap: "Trinity\nemergency infographics", cats: "illustration\ntypography" },
   { slug: "paroles",        title: "PAROLES | French teacher visual identity",      image: "images/paroles.jpg",        bg: "#FDEFE8", x: 2059, y: 1398, w: 500, h: 391, cap: "Paroles\nFrench teacher identity", cats: "brand identity\nbrand voice" },
