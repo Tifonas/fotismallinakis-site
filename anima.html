@@ -44,7 +44,7 @@
   var wrap=document.querySelector('.long'); if(!wrap) return;
   var qs=[].slice.call(wrap.querySelectorAll('.q'));
   if(!qs.length||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
-  var vh=0,base=[],raf=0,SPEED=0.5;
+  var vh=0,base=[],raf=0,SPEED=0.2;
   function measure(){
     vh=window.innerHeight; var top=wrap.getBoundingClientRect().top+window.pageYOffset;
     base=qs.map(function(q){ return top+q.offsetTop+q.offsetHeight/2-vh/2; });
@@ -58,6 +58,15 @@
   if(window.ResizeObserver) new ResizeObserver(measure).observe(wrap);
   window.addEventListener('load',measure); measure();
 })();
+    </script>
+    <div class="ph viewer3d" style="grid-column: 1 / span 12; grid-row: 2; aspect-ratio: 1065 / 599" data-glb="images/thesis-coin.glb" role="img" aria-label="Interactive 3D model of the thesis coin. Drag sideways to rotate."></div>
+    <script type="module">
+      var host = document.querySelector('.viewer3d');
+      function boot() { import('./coin-viewer.js').then(function (m) { m.start(host); }).catch(function () {}); }
+      if ('IntersectionObserver' in window) {
+        var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); boot(); } }, { rootMargin: '600px 0px' });
+        io.observe(host);
+      } else { boot(); }
     </script>
   </section>
 
