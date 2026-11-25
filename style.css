@@ -170,3 +170,9 @@ html.dark .project .hero { background: #000; }
 .project .viewer3d:active { cursor: grabbing; }
 .project .viewer3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .4s ease; }
 .project .viewer3d.ready canvas { opacity: 1; }
+
+.project .sq4 { grid-column: 1 / -1; width: min(100vw, 1500px); justify-self: center; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.project .sq4 img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: #e4e5e7; }
+.project .pres { grid-column: 1 / -1; width: min(100vw, 1500px); justify-self: center; position: relative; background: #081d3f; }
+.project .pres img { display: block; width: 100%; height: auto; }
+.project .pres .pv { position: absolute; display: block; object-fit: cover; background: #888; }

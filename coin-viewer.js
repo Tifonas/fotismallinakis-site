@@ -62,6 +62,7 @@ export function start(host) {
     camera.position.set(c.x, c.y + s * 0.18, c.z + s * 2.1);
     controls.target.copy(c); controls.update();
     host.classList.add('ready');
+    setTimeout(function(){ host.style.backgroundImage = 'none'; }, 500);
     kick();
   }, undefined, () => {});
 }

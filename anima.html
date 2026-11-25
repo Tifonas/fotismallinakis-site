@@ -59,7 +59,7 @@
   window.addEventListener('load',measure); measure();
 })();
     </script>
-    <div class="ph viewer3d" style="grid-column: 1 / span 12; grid-row: 2; aspect-ratio: 1065 / 599" data-glb="images/thesis-coin.glb" role="img" aria-label="Interactive 3D model of the thesis coin. Drag sideways to rotate."></div>
+    <div class="ph viewer3d" style="grid-column: 1 / span 12; grid-row: 3; aspect-ratio: 1065 / 599" data-glb="images/thesis-coin.glb" role="img" aria-label="Interactive 3D model of the thesis coin. Drag sideways to rotate."></div>
     <script type="module">
       var host = document.querySelector('.viewer3d');
       function boot() { import('./coin-viewer.js').then(function (m) { m.start(host); }).catch(function () {}); }
@@ -67,6 +67,11 @@
         var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); boot(); } }, { rootMargin: '600px 0px' });
         io.observe(host);
       } else { boot(); }
+    </script>
+    <div class="sq4" style="grid-column: 1 / -1; grid-row: 2"><img src="images/anima-grid-1.jpg" width="1400" height="1400" alt="Anima brand photograph 1" loading="lazy"><img src="images/anima-grid-2.jpg" width="1400" height="1400" alt="Anima brand photograph 2" loading="lazy"><img src="images/anima-grid-3.jpg" width="1400" height="1400" alt="Anima brand photograph 3" loading="lazy"><img src="images/anima-grid-4.jpg" width="1400" height="1400" alt="Anima brand photograph 4" loading="lazy"></div>
+    <div class="pres" style="grid-column: 1 / -1; grid-row: 4"><img src="images/anima-presentation.png" width="1000" height="2500" alt="Anima animation presentation: six short animated scenes" loading="lazy"><video class="pv" style="left:52.5%;width:41.7%;top:7.760%;height:8.960%" src="images/anima-video-1.mp4" poster="images/anima-video-1.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><video class="pv" style="left:52.5%;width:41.7%;top:22.480%;height:8.960%" src="images/anima-video-2.mp4" poster="images/anima-video-2.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><video class="pv" style="left:52.5%;width:41.7%;top:37.000%;height:8.960%" src="images/anima-video-3.mp4" poster="images/anima-video-3.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><video class="pv" style="left:52.5%;width:41.7%;top:51.480%;height:8.960%" src="images/anima-video-4.mp4" poster="images/anima-video-4.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><video class="pv" style="left:52.5%;width:41.7%;top:66.000%;height:8.960%" src="images/anima-video-5.mp4" poster="images/anima-video-5.jpg" muted loop playsinline preload="none" aria-hidden="true"></video><video class="pv" style="left:52.5%;width:41.7%;top:80.520%;height:8.960%" src="images/anima-video-6.mp4" poster="images/anima-video-6.jpg" muted loop playsinline preload="none" aria-hidden="true"></video></div>
+    <script>
+(function(){var vs=[].slice.call(document.querySelectorAll('.pres .pv'));if(!vs.length)return;var rm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;if(rm||!('IntersectionObserver' in window)){return;}var io=new IntersectionObserver(function(es){es.forEach(function(e){var v=e.target;if(e.isIntersecting){if(v.preload!=='auto')v.preload='auto';var p=v.play();if(p&&p.catch)p.catch(function(){});}else{v.pause();}});},{rootMargin:'200px 0px'});vs.forEach(function(v){io.observe(v);});})();
     </script>
   </section>
 
