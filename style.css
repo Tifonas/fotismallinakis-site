@@ -153,15 +153,14 @@ html.dark .bar a { color: #fff; }
 html.dark .foot { color: #8a8a8a; }
 html.dark .project .hero { background: #000; }
 
-/* Anima: long photo (10 slices, 1434px wide as in Figma) with two parallax quotes (50% of scroll speed) */
-.project .long { grid-column: 1 / -1; width: min(1434px, calc(100vw - 6px)); justify-self: center; position: relative; container-type: inline-size; background: #e4e5e7; }
+/* Anima: long photo, full width edge to edge (10 slices, all loaded at once) with two parallax quotes (50% of scroll speed).
+   Sizes follow the Figma frame: 60px Bold on a 1440px-wide photo, sources 22px. */
+.project .long { grid-column: 1 / -1; width: min(100vw, 1500px); justify-self: center; position: relative; container-type: inline-size; background: #e4e5e7; }
 .project .long img { display: block; width: 100%; height: auto; }
 .project .long img + img { margin-top: -0.1334%; }
-.project .long .q { position: absolute; left: 12.62%; width: 56.49%; margin: 0; font-size: min(80px, 5.556vw); font-weight: 400; line-height: calc(1em + 2px); will-change: transform; pointer-events: none; }
-@supports (font-size: 1cqw) { .project .long .q { font-size: 5.579cqw; } }
+.project .long .q { position: absolute; left: 13.056%; width: 73.958%; margin: 0; font-size: min(60px, 4.1667vw); font-weight: 700; line-height: 1.2333; color: #db5938; will-change: transform; pointer-events: none; }
+@supports (font-size: 1cqw) { .project .long .q { font-size: 4.1667cqw; } }
 .project .long .q blockquote { margin: 0; }
-.project .long .q figcaption { font-size: max(.28em, 11px); line-height: calc(1em + 2px); margin-top: .6em; }
-.project .long .q1 { top: 7.018%; color: #11213f; }
-.project .long .q1 figcaption { color: #db5938; }
-.project .long .q2 { top: 48.34%; color: #db5938; }
-.project .long .q2 figcaption { color: #11213f; }
+.project .long .q figcaption { font-size: max(.3667em, 11px); font-weight: 400; line-height: calc(1em + 2px); margin-top: 1.05em; color: #11213f; }
+.project .long .q1 { top: 6.679%; }
+.project .long .q2 { top: 49.10%; }
