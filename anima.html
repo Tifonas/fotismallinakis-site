@@ -34,9 +34,31 @@
   </section>
 
   <section class="blocks grid" style="grid-column: 1 / -1">
-    <div class="ph" style="grid-column: 1 / span 12; grid-row: 1; aspect-ratio: 1065 / 526"></div>
-    <div class="ph" style="grid-column: 1 / span 12; grid-row: 2; aspect-ratio: 1065 / 526"></div>
-    <div class="ph" style="grid-column: 1 / span 12; grid-row: 3; aspect-ratio: 1065 / 1500"></div>
+    <div class="long" style="grid-column: 1 / -1; grid-row: 1">
+      <img src="images/anima-01.jpg" width="1500" height="1668" alt="Contemporary Art Market book, photographed spread by spread" loading="eager"><img src="images/anima-02.jpg" width="1500" height="1668" alt="" loading="lazy"><img src="images/anima-03.jpg" width="1500" height="1668" alt="" loading="lazy"><img src="images/anima-04.jpg" width="1500" height="1668" alt="" loading="lazy"><img src="images/anima-05.jpg" width="1500" height="1668" alt="" loading="lazy"><img src="images/anima-06.jpg" width="1500" height="1668" alt="" loading="lazy"><img src="images/anima-07.jpg" width="1500" height="1668" alt="" loading="lazy"><img src="images/anima-08.jpg" width="1500" height="1668" alt="" loading="lazy"><img src="images/anima-09.jpg" width="1500" height="1668" alt="" loading="lazy"><img src="images/anima-10.jpg" width="1500" height="1666" alt="" loading="lazy">
+      <figure class="q q1"><blockquote>&ldquo;Did you know that 85% of the global revenue in the Contemporary Art Market comes from the 500 most commercially successful contemporary artists worldwide, and nearly one-third of the global revenue from contemporary art comes from just ten names.&rdquo;</blockquote><figcaption>The 2023 Contemporary Art Market Report</figcaption></figure>
+      <figure class="q q2"><blockquote>&ldquo;How many authors have confused art with beauty, style, technique, etc., while in reality, art is none of these - although they can all be elements in a completed work of art.&rdquo;</blockquote><figcaption>Quote by sculptor Wellington Ruckstuhl</figcaption></figure>
+    </div>
+    <script>
+(function(){
+  var wrap=document.querySelector('.long'); if(!wrap) return;
+  var qs=[].slice.call(wrap.querySelectorAll('.q'));
+  if(!qs.length||(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)) return;
+  var vh=0,base=[],raf=0,SPEED=0.5;
+  function measure(){
+    vh=window.innerHeight; var top=wrap.getBoundingClientRect().top+window.pageYOffset;
+    base=qs.map(function(q){ return top+q.offsetTop+q.offsetHeight/2-vh/2; });
+    update();
+  }
+  function update(){ raf=0; var y=window.pageYOffset;
+    for(var i=0;i<qs.length;i++){ qs[i].style.transform='translate3d(0,'+((y-base[i])*SPEED).toFixed(1)+'px,0)'; } }
+  function onScroll(){ if(!raf) raf=requestAnimationFrame(update); }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',measure);
+  if(window.ResizeObserver) new ResizeObserver(measure).observe(wrap);
+  window.addEventListener('load',measure); measure();
+})();
+    </script>
   </section>
 
   <nav class="pn grid" style="grid-column: 1 / -1">
