@@ -184,5 +184,13 @@ html.project body { container-type: inline-size; }
 .project .hero.wide.bleed { width: 100vw; width: 100cqw; }
 
 html.tinted, html.tinted.project body { background: var(--page); }
-html.tinted .bar { background: var(--page); }
 html.tinted .project .long, html.tinted .project .sq4 img { background: var(--page); }
+
+/* Parthenogenesis: layered scroll composition. Final state = static layout; JS offsets layers while they enter. */
+.project .px { grid-column: 1 / -1; position: relative; width: 100vw; width: 100cqw; justify-self: center; aspect-ratio: 1440 / 6064; overflow: hidden; background: #000; }
+.project .px img { position: absolute; display: block; height: auto; max-width: none; }
+.project .px .px-bg { left: 0; top: 0; width: 100%; height: 100%; }
+.project .px .px-t, .project .px .px-h { will-change: transform; }
+.project .px .px-h.lower { z-index: 1; }
+.project .px .px-h.upper { z-index: 2; }
+.project .px .px-t { z-index: 3; }
