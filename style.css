@@ -148,8 +148,7 @@ body:not(.project) .foot { position: fixed; left: 0; right: 0; bottom: 12px; z-i
 
 /* Dark project page (John Cage): pure black */
 html.dark, html.dark body { background: #000; color: #fff; }
-html.dark .bar { background: #000; border-bottom-color: #2a2a2a; box-shadow: none; }
-html.dark .bar a { color: #fff; }
+html.dark .bar a { color: #000; }
 html.dark .foot { color: #8a8a8a; }
 html.dark .project .hero { background: #000; }
 
