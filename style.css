@@ -171,7 +171,7 @@ html.dark .project .hero { background: #000; }
 .project .viewer3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .4s ease; }
 .project .viewer3d.ready canvas { opacity: 1; }
 
-.project .abacus { grid-column: 1 / -1; width: 100vw; width: 100cqw; justify-self: center; }
+.project .abacus { grid-column: 1 / span 12; }
 .project .abacus img { display: block; width: 100%; height: auto; }
 .project .sq4 { grid-column: 1 / -1; width: 100vw; width: 100cqw; justify-self: center; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 .project .sq4 img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: #e4e5e7; }
