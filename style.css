@@ -155,7 +155,7 @@ html.dark .project .hero { background: #000; }
 
 /* Anima: long photo, full width edge to edge (10 slices, all loaded at once) with two parallax quotes (50% of scroll speed).
    Sizes follow the Figma frame: 60px Bold on a 1440px-wide photo, sources 22px. */
-.project .long { grid-column: 1 / -1; width: min(100vw, 1500px); justify-self: center; position: relative; container-type: inline-size; background: #e4e5e7; }
+.project .long { grid-column: 1 / -1; width: 100vw; width: 100cqw; justify-self: center; position: relative; container-type: inline-size; background: #e4e5e7; }
 .project .long img { display: block; width: 100%; height: auto; }
 .project .long img + img { margin-top: -0.1334%; }
 .project .long .q { position: absolute; left: 13.056%; width: 73.958%; margin: 0; font-size: min(60px, 4.1667vw); font-weight: 700; line-height: 1.2333; color: #db5938; will-change: transform; pointer-events: none; }
@@ -171,8 +171,12 @@ html.dark .project .hero { background: #000; }
 .project .viewer3d canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; opacity: 0; transition: opacity .4s ease; }
 .project .viewer3d.ready canvas { opacity: 1; }
 
-.project .sq4 { grid-column: 1 / -1; width: min(100vw, 1500px); justify-self: center; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+.project .sq4 { grid-column: 1 / -1; width: 100vw; width: 100cqw; justify-self: center; display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
 .project .sq4 img { display: block; width: 100%; height: auto; aspect-ratio: 1; object-fit: cover; background: #e4e5e7; }
-.project .pres { grid-column: 1 / -1; width: min(100vw, 1500px); justify-self: center; position: relative; background: #081d3f; }
+.project .pres { grid-column: 1 / -1; width: 100vw; width: 100cqw; justify-self: center; position: relative; background: #081d3f; }
 .project .pres img { display: block; width: 100%; height: auto; }
 .project .pres .pv { position: absolute; display: block; object-fit: cover; background: #888; }
+
+/* edge-to-edge: 100cqw = page width without the scrollbar, no max cap */
+html.project body { container-type: inline-size; }
+.project .hero.wide.bleed { width: 100vw; width: 100cqw; }
