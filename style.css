@@ -157,13 +157,13 @@ html.dark .project .hero { background: #000; }
    Sizes follow the Figma frame: 60px Bold on a 1440px-wide photo, sources 22px. */
 .project .long { grid-column: 1 / -1; width: 100vw; width: 100cqw; justify-self: center; position: relative; container-type: inline-size; background: #e4e5e7; }
 .project .long img { display: block; width: 100%; height: auto; }
-.project .long img + img { margin-top: -0.1334%; }
+.project .long img + img { margin-top: 0; }
 .project .long .q { position: absolute; left: 13.056%; width: 73.958%; margin: 0; font-size: min(60px, 4.1667vw); font-weight: 700; line-height: 1.2333; color: #db5938; will-change: transform; pointer-events: none; }
 @supports (font-size: 1cqw) { .project .long .q { font-size: 4.1667cqw; } }
 .project .long .q blockquote { margin: 0; }
 .project .long .q figcaption { font-size: max(.3667em, 11px); font-weight: 400; line-height: calc(1em + 2px); margin-top: 1.05em; color: #11213f; }
-.project .long .q1 { top: 6.679%; }
-.project .long .q2 { top: 49.10%; }
+.project .long .q1 { top: 8.958%; }
+.project .long .q2 { top: 65.847%; }
 
 /* Anima: 3D coin viewer (three.js, loads only near the screen). Poster shows until the model is ready. */
 .project .viewer3d { position: relative; overflow: hidden; background: #e4e5e7 url(images/thesis-coin-poster.jpg) center / cover no-repeat; cursor: grab; }
@@ -180,3 +180,7 @@ html.dark .project .hero { background: #000; }
 /* edge-to-edge: 100cqw = page width without the scrollbar, no max cap */
 html.project body { container-type: inline-size; }
 .project .hero.wide.bleed { width: 100vw; width: 100cqw; }
+
+html.tinted, html.tinted.project body { background: var(--page); }
+html.tinted .bar { background: var(--page); }
+html.tinted .project .long, html.tinted .project .sq4 img { background: var(--page); }
