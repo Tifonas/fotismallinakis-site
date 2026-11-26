@@ -192,4 +192,6 @@ html.tinted .project .long, html.tinted .project .sq4 img { background: var(--pa
 .project .px .px-t, .project .px .px-h { will-change: transform; }
 .project .px .px-h.lower { z-index: 1; }
 .project .px .px-h.upper { z-index: 2; }
-.project .px .px-t { z-index: 3; }
+.project .px .px-t { z-index: 3; transform-origin: 50.2% 49.1%; }
+
+@media (min-width: 1280px) { .project .px .px-t { scale: 0.7; } }
