@@ -216,3 +216,8 @@ html.tinted .project .long, html.tinted .project .sq4 img { background: var(--pa
 .project .long .q { font-size: min(55px, 3.8194vw); }
 @supports (font-size: 1cqw) { .project .long .q { font-size: calc(4.1667cqw - 2px); } }
 @media (min-width: 1440px) { @supports (font-size: 1cqw) { .project .long .q { font-size: calc(4.1667cqw - 5px); } } }
+
+html.whitetop, html.whitetop body { background: #fff; }
+html.whitetop .project .hero { background: #fff; }
+.project .fullimg.darkfrom { box-shadow: 0 0 0 6000px #000; clip-path: inset(0 -6000px -6000px -6000px); }
+html.whitetop .project .fullimg:not(.darkfrom), html.whitetop .project .pn, html.whitetop .foot { position: relative; z-index: 1; }
