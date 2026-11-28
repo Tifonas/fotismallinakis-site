@@ -206,5 +206,8 @@ html.tinted .project .long, html.tinted .project .sq4 img { background: var(--pa
 .project .bl.anim .lb line { stroke-dasharray:1; stroke-dashoffset:1; }
 .project .bl.anim .lb.on line { stroke-dashoffset:0; transition:stroke-dashoffset .9s cubic-bezier(.65,0,.35,1); }
 .project .bl.anim .lb text { visibility:hidden; }
-.project .sec { font-family: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; font-weight: 400; font-size: 100px; line-height: 1.05; letter-spacing: -0.01em; color: #ff6a13; padding: 90px 0 50px; text-align: left; }
+.project .sec { font-family: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; font-weight: 400; font-size: 100px; line-height: 1.05; letter-spacing: -0.01em; color: #db5938; padding: 90px 0 50px; text-align: left; }
 @media (max-width: 1100px) { .project .sec { font-size: 9.1cqw; padding: 8cqw 0 4cqw; } }
+
+.project .fullimg { grid-column: 1 / -1; width: 100vw; width: 100cqw; justify-self: center; }
+.project .fullimg img { display: block; width: 100%; height: auto; }
